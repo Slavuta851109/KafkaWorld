@@ -65,10 +65,12 @@ services:
       - kafka-setup
     ports:
       - 9000:9000
+    networks:
+      - int-testing-net
     hostname: kafdrop
     container_name: kafdrop
     environment:
       KAFKA_BROKERCONNECT: 'broker:9092'
-      
+
 networks:
   int-testing-net:
