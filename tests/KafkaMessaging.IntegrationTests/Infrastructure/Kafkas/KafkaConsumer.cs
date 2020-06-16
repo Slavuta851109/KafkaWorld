@@ -33,15 +33,15 @@ namespace KafkaMessaging.IntegrationTests.Infrastructure.Kafkas
             _logger = logger ?? throw new ApplicationException($"{nameof(logger)} is null.");
             _topic = topic ?? throw new ApplicationException($"{nameof(topic)} is null.");
 
-            var config = new Dictionary<string, string>
+            var consumerConfig = new ConsumerConfig
             {
-                { KafkaPropertyNames.BootstrapServers, ConfigurationManager.Configuration["KAFKA_LOCAL_HOST"] },
-                { KafkaPropertyNames.GroupId, $"IntegrationTests.Consumer.{Guid.NewGuid()}" },
-                { KafkaPropertyNames.AutoOffsetReset, "earliest" },
-                { KafkaPropertyNames.EnableAutoCommit, "false" }
+                BootstrapServers = ConfigurationManager.Configuration["KAFKA_LOCAL_HOST"],
+                GroupId = $"IntegrationTests.Consumer.{Guid.NewGuid()}",
+                AutoOffsetReset = AutoOffsetReset.Earliest,
+                EnableAutoCommit = false
             };
 
-            _consumer = new ConsumerBuilder<string, string>(config)
+            _consumer = new ConsumerBuilder<string, string>(consumerConfig)
                     .SetErrorHandler((_, error) => _logger.WriteLine(error.Reason))
                     .SetLogHandler((_, message) => _logger.WriteLine(message.Message))
                     .Build();

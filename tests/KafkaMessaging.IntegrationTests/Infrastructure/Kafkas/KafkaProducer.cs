@@ -13,15 +13,14 @@ namespace KafkaMessaging.IntegrationTests.Infrastructure.Kafkas
 
         public KafkaProducer(ITestOutputHelper logger, string topic)
         {
-            var config = new Dictionary<string, string>
-            {
-                { KafkaPropertyNames.BootstrapServers, ConfigurationManager.Configuration["KAFKA_LOCAL_HOST"] },
-                { KafkaPropertyNames.GroupId, $"IntegrationTests.Producer.{Guid.NewGuid()}" },
-            };
-
-            _producer = new ProducerBuilder<string, string>(config).Build();
             _topic = topic ?? throw new ApplicationException($"{nameof(topic)} is null.");
             _logger = logger ?? throw new ApplicationException($"{nameof(logger)} is null.");
+
+            var producerConfig = new ProducerConfig 
+            { 
+                BootstrapServers = ConfigurationManager.Configuration["KAFKA_LOCAL_HOST"] 
+            };
+            _producer = new ProducerBuilder<string, string>(producerConfig).Build();
         }
 
         public void SendMany(IEnumerable<object> objectList)
