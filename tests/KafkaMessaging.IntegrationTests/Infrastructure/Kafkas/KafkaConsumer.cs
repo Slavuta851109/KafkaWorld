@@ -30,8 +30,8 @@ namespace KafkaMessaging.IntegrationTests.Infrastructure.Kafkas
 
         public KafkaConsumer(ITestOutputHelper logger, string topic)
         {
-            _logger = logger ?? throw new ApplicationException($"{nameof(logger)} is null.");
-            _topic = topic ?? throw new ApplicationException($"{nameof(topic)} is null.");
+            _logger = logger ?? throw new ArgumentException($"{nameof(logger)} is null.");
+            _topic = topic ?? throw new ArgumentException($"{nameof(topic)} is null.");
 
             var consumerConfig = new ConsumerConfig
             {
@@ -53,7 +53,7 @@ namespace KafkaMessaging.IntegrationTests.Infrastructure.Kafkas
             Guid customerId, 
             CancellationTokenSource cancellationTokenSource)
         {
-            if (cancellationTokenSource == null) throw new ApplicationException($"{nameof(cancellationTokenSource)} is null.");
+            if (cancellationTokenSource == null) throw new ArgumentException($"{nameof(cancellationTokenSource)} is null.");
 
             while (!cancellationTokenSource.IsCancellationRequested)
             {

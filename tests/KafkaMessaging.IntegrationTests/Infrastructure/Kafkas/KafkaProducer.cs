@@ -13,8 +13,8 @@ namespace KafkaMessaging.IntegrationTests.Infrastructure.Kafkas
 
         public KafkaProducer(ITestOutputHelper logger, string topic)
         {
-            _topic = topic ?? throw new ApplicationException($"{nameof(topic)} is null.");
-            _logger = logger ?? throw new ApplicationException($"{nameof(logger)} is null.");
+            _topic = topic ?? throw new ArgumentException($"{nameof(topic)} is null.");
+            _logger = logger ?? throw new ArgumentException($"{nameof(logger)} is null.");
 
             var producerConfig = new ProducerConfig 
             { 

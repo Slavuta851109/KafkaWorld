@@ -18,13 +18,13 @@ namespace KafkaMessaging.IntegrationTests.Infrastructure.Kafkas
                 case WalletTransaction t:
                     return Create_WalletTransaction(t);
                 default:
-                    throw new NotSupportedException($"Type {o.GetType()} is not supported for message mapping.");
+                    throw new NotImplementedException($"Type {o.GetType()} is not supported for message mapping.");
             }
         }
 
         public static Message<string, string> Create_WalletTransaction(WalletTransaction objectToSend)
         {
-            if (objectToSend.BrandName == null) throw new ApplicationException($"{nameof(objectToSend.BrandName)} cannot be null.");
+            if (objectToSend.BrandName == null) throw new ArgumentException($"{nameof(objectToSend.BrandName)} cannot be null.");
 
             Message<string, string> message = new Message<string, string>
             {

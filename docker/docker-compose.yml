@@ -64,7 +64,7 @@ services:
       - broker
       - kafka-setup
     ports:
-      - 9000:9000
+      - 9001:9000
     networks:
       - int-testing-net
     hostname: kafdrop
