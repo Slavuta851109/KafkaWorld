@@ -1,4 +1,4 @@
-# Kafka World playground
+# Kafka Playground
 ### Setup infra with topics: TopicToConsume, TopicToProduce
 1) Start infra:
    Go to folder `docker` and run command: `docker-compose up -d`
